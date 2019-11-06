@@ -38,7 +38,7 @@ Example queries:
 
 * Get Pokemon by key (name)
 
-    [http://localhost:11222/rest/v2/caches/pokemon/Whismur](http://127.0.0.1:8080/rest/pokemon/Whismur)
+    [http://localhost:11222/rest/v2/caches/pokemon/Whismur](http://localhost:11222/rest/v2/caches/pokemon/Whismur)
 
 * Get all Pokemons: 
   
