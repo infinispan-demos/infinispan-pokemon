@@ -12,13 +12,13 @@ taking advantage of the mapping between Protobuf and JSON present in Infinispan
 
 ## Running 
 
-* Start Infinispan 9.2:
+* Start Infinispan 10.0:
 
-  ```docker run -it --name infinispan-server -p 8080:8080 -e "APP_USER=user" -e "APP_PASS=user" jboss/infinispan-server:9.2.0.CR2```
+  ```docker run -it --name infinispan-server -p 11222:11222 -e "USER=user" -e "PASS=user" infinispan/server:10.0.1.Final```
 
 * Register the protobuf schema
   
-  ```curl -u user:user -X POST --data-binary @./pokemon.proto http://127.0.0.1:8080/rest/___protobuf_metadata/pokemon.proto```
+  ```curl -u user:user -X POST --data-binary @./pokemon.proto http://127.0.0.1:11222/rest/v2/caches/___protobuf_metadata/pokemon.proto```
 
 * Prepare data
 
@@ -26,7 +26,7 @@ taking advantage of the mapping between Protobuf and JSON present in Infinispan
   
 * Creating an indexed cache
 
-  ``` ./create-cache.sh ```
+  ``` curl u user:user -H "Content-Type: application/json" -d '{"distributed-cache":{"mode":"SYNC","indexing":{"auto-config":true,"index":"LOCAL"}}}' http://127.0.0.1:11222/rest/v2/caches/pokemon ```
 
 * Ingest data
 
@@ -38,22 +38,21 @@ Example queries:
 
 * Get Pokemon by key (name)
 
-    [http://localhost:8080/rest/pokemon/Whismur](http://127.0.0.1:8080/rest/pokemon/Whismur)
+    [http://localhost:11222/rest/v2/caches/pokemon/Whismur](http://127.0.0.1:8080/rest/pokemon/Whismur)
 
 * Get all Pokemons: 
   
-   [from Pokemon](http://localhost:8080/rest/pokemon?action=search&query=from%20Pokemon)
+   [from Pokemon](http://localhost:11222/rest/v2/caches/pokemon?action=search&query=from%20Pokemon)
    
 * Count Pokemons by generation:
 
-   [select count(p.name) from Pokemon group by generation](http://localhost:8080/rest/pokemon?action=search&query=select%20count(p.name)%20from%20Pokemon%20p%20group%20by%20generation)
+   [select count(p.name) from Pokemon group by generation](http://localhost:11222/rest/v2/caches/pokemon?action=search&query=select%20count(p.name)%20from%20Pokemon%20p%20group%20by%20generation)
    
 * Do a full text search on the name
 
-  [from Pokemon where name:'pikachu'](http://localhost:8080/rest/pokemon?action=search&query=from%20Pokemon%20where%20name:%27pikachu%27)
+  [from Pokemon where name:'pikachu'](http://localhost:11222/rest/v2/caches/pokemon?action=search&query=from%20Pokemon%20where%20name:%27pikachu%27)
   
 * Select top 5 Pokemons that can better withstand fire:
 
-  [from Pokemon order by against_fire](http://localhost:8080/rest/pokemon?action=search&query=from%20Pokemon%20order%20by%20against_fire%20asc&max_results=5)
+  [from Pokemon order by against_fire](http://localhost:11222/rest/v2/caches/pokemon?action=search&query=from%20Pokemon%20order%20by%20against_fire%20asc&max_results=5)
 
-    
