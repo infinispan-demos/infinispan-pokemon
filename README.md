@@ -26,7 +26,7 @@ taking advantage of the mapping between Protobuf and JSON present in Infinispan
   
 * Creating an indexed cache
 
-  ``` curl u user:user -H "Content-Type: application/json" -d '{"distributed-cache":{"mode":"SYNC","indexing":{"auto-config":true,"index":"LOCAL"}}}' http://127.0.0.1:11222/rest/v2/caches/pokemon ```
+  ``` curl -u user:user -H "Content-Type: application/json" -d '{"distributed-cache":{"mode":"SYNC","indexing":{"auto-config":true,"index":"LOCAL"}}}' http://127.0.0.1:11222/rest/v2/caches/pokemon ```
 
 * Ingest data
 
