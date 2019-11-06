@@ -1,6 +1,6 @@
 # Infinispan Pokemon
 
-This demo uses the query and REST capabilities of Infinispan Server 9.2 to help you battle Pokemons!
+This demo uses the query and REST capabilities of Infinispan Server 10 to help you battle Pokemons!
 
 Data is ingested as JSON, and internally stored efficiently as Protobuf. Both query and retrieval happens using JSON
 taking advantage of the mapping between Protobuf and JSON present in Infinispan
