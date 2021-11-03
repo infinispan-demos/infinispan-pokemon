@@ -1,24 +1,20 @@
 # Infinispan Pokemon
 
-This demo uses the query and REST capabilities of Infinispan Server 10 to help you battle Pokemons!
+This demo uses the query and REST capabilities of Infinispan Server to help you battle Pokemons!
 
 Data is ingested as JSON, and internally stored efficiently as Protobuf. Both query and retrieval happens using JSON
 taking advantage of the mapping between Protobuf and JSON present in Infinispan
 
 ## Requirements
 
-* Download the dataset ```pokemon.zip``` from https://www.kaggle.com/rounakbanik/pokemon
-* Make sure Python 3 installed ```python --version```
+* Download the dataset ```archive.zip``` from https://www.kaggle.com/rounakbanik/pokemon
+* Make sure Python 3 installed ```pyathon --version```
 
 ## Running 
 
-* Start Infinispan 10.0:
+* Start Infinispan Server:
 
-  ```docker run -it --name infinispan-server -p 11222:11222 -e "USER=user" -e "PASS=user" infinispan/server:10.0.1.Final```
-
-* Register the protobuf schema
-  
-  ```curl -u user:user -X POST --data-binary @./pokemon.proto http://127.0.0.1:11222/rest/v2/caches/___protobuf_metadata/pokemon.proto```
+  ```docker run -it --name infinispan-server -p 11222:11222 -e "USER=user" -e "PASS=user" infinispan/server:13.0```
 
 * Prepare data
 
@@ -26,11 +22,15 @@ taking advantage of the mapping between Protobuf and JSON present in Infinispan
   
 * Creating an indexed cache
 
-  ``` curl -u user:user -H "Content-Type: application/json" -d '{"distributed-cache":{"mode":"SYNC","indexing":{"auto-config":true,"index":"LOCAL"}}}' http://127.0.0.1:11222/rest/v2/caches/pokemon ```
+  ```curl -u user:user --digest -H "Content-Type: application/json" -d '{"distributed-cache":{"mode":"SYNC","indexing":{"indexed-entities":["Pokemon"]}}}' http://127.0.0.1:11222/rest/v2/caches/pokemon ```
+
+* Register the protobuf schema
+
+  ``` curl -u user:user --digest --data-binary @./pokemon.proto http://127.0.0.1:11222/rest/v2/schemas/pokemon.proto ```
 
 * Ingest data
 
-   ``` ./ingest-data.sh```
+   ```./ingest-data.sh```
    
 ## Querying
 
