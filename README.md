@@ -8,7 +8,7 @@ taking advantage of the mapping between Protobuf and JSON present in Infinispan
 ## Requirements
 
 * Download the dataset ```archive.zip``` from https://www.kaggle.com/rounakbanik/pokemon
-* Make sure Python 3 installed ```pyathon --version```
+* Make sure Python 3 installed ```python --version```
 
 ## Running 
 
