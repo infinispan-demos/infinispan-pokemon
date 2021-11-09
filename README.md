@@ -22,7 +22,7 @@ taking advantage of the mapping between Protobuf and JSON present in Infinispan
   
 * Creating an indexed cache
 
-  ```curl -u user:user --digest -H "Content-Type: application/json" -d '{"distributed-cache":{"mode":"SYNC","indexing":{"indexed-entities":["Pokemon"]}}}' http://127.0.0.1:11222/rest/v2/caches/pokemon ```
+  ```curl -u user:user --digest -H "Content-Type: application/json" -d '{"distributed-cache":{"mode":"SYNC","encoding":{"key":{"media-type":"application/x-protostream"},"value":{"media-type":"application/x-protostream"}},"indexing":{"indexed-entities":["Pokemon"]}}}' http://127.0.0.1:11222/rest/v2/caches/pokemon ```
 
 * Register the protobuf schema
 
